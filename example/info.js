@@ -1,7 +1,11 @@
 var ytdl = require('..')
 var url = 'http://www.youtube.com/watch?v=0RUvealeXZ0'
-
-ytdl.getInfo(url, function (err, info) {
+const options = [
+  '--username=user',
+  '--password=hunter2',
+  '--proxy=http://127.0.0.1:1080'
+]
+ytdl.getInfo(url, options, function (err, info) {
   'use strict'
   if (err) {
     throw err

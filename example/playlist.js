@@ -2,9 +2,9 @@ var path = require('path')
 var fs = require('fs')
 var ytdl = require('..')
 
-function playlist (url) {
+function playlist (url, options) {
   'use strict'
-  var video = ytdl(url)
+  var video = ytdl(url, options)
 
   video.on('error', function error (err) {
     console.log(err.stack)
@@ -13,8 +13,9 @@ function playlist (url) {
   var size = 0
   video.on('info', function (info) {
     size = info.size
-    var output = path.resolve(__dirname, '/', size + '.mp4')
-    video.pipe(fs.createWriteStream(output))
+    // var output = path.resolve(__dirname, '/video', size + '.mp4')
+    var file = path.join(__dirname + '/video', info._filename)
+    video.pipe(fs.createWriteStream(file))
   })
 
   var pos = 0
@@ -32,4 +33,8 @@ function playlist (url) {
   video.on('next', playlist)
 }
 
-playlist('https://www.youtube.com/playlist?list=PLEFA9E9D96CB7F807')
+playlist('https://www.youtube.com/playlist?list=UUpsSadsgX_Qk9i6i_bJoUwQ', [
+  '-f',
+  '18',
+  '--proxy=127.0.0.1:1080'
+])

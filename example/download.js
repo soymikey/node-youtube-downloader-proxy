@@ -5,7 +5,7 @@ var ytdl = require('..')
 var video = ytdl(
   'https://www.youtube.com/watch?v=AW8OOp2undg',
   // Optional arguments passed to youtube-dl.
-  ['-f', '18']
+  ['-f', '18', '--proxy=127.0.0.1:1080']
 )
 
 var size = 0
@@ -20,7 +20,7 @@ video.on('info', function (info) {
 
 var pos = 0
 video.on('data', function data (chunk) {
-  'use strict'
+  ;('use strict')
   pos += chunk.length
 
   // `size` should not be 0 here.
